@@ -24,7 +24,6 @@ namespace UltraTT.Game.ViewModel
             _model = new OnlineLobbyPageModel();
             _model.MatchFoundEvent += MatchFoundEventHandler;
             _lobbyInfo = "Welcome to online mode";
-            _opponentName = "coming soon";
             FindMatchCommand = new SimpleCommand(FindMatch);
         }
 
@@ -33,6 +32,7 @@ namespace UltraTT.Game.ViewModel
             LobbyInfo = "Match found!";
             FindMatchCommand = null;
             Thread.Sleep(1000);
+            
             Navigator.GetInstance().Show(new OnlineSessionPageView(e));
         }
 
@@ -78,20 +78,6 @@ namespace UltraTT.Game.ViewModel
             }
         }
 
-        private string _opponentName;
-        public string OpponentName
-        {
-            get
-            {
-                return _opponentName;
-            }
-            set
-            {
-                _opponentName = value;
-
-                OnPropertyChanged();
-            }
-        }
 
         private SimpleCommand _findMatchCommand;
         public SimpleCommand FindMatchCommand

@@ -4,20 +4,16 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:viewModel="clr-namespace:UltraTT.Game.ViewModel"
+      xmlns:fa="http://schemas.fontawesome.io/icons/"
       d:DataContext="{d:DesignInstance viewModel:OnlineLobbyPageViewModel}"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       Title="LeaderboardPageView">
     
     <DockPanel SnapsToDevicePixels="True">
-        
+
         <Grid DockPanel.Dock="Bottom" Height="35" Margin="0, 0, 0, 10" HorizontalAlignment="Center">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <TextBox Text="{Binding OpponentName, Mode= OneWay}" Margin="5" MinWidth="70"/>
-            <Button Grid.Column="1" Command="{Binding FindMatchCommand}" Content="Find match" 
+            <Button Command="{Binding FindMatchCommand}" Content="Find match" 
                     FontWeight="DemiBold" Margin="5" HorizontalAlignment="Left" Width="80"/>
         </Grid>
         
@@ -30,10 +26,10 @@
                 
                 <TextBlock Name="LobbyInfo" Text="{Binding LobbyInfo}" FontWeight="DemiBold" 
                            FontSize="30" Foreground="Gray" Margin="0, 5"/>
-                
-                <Image Grid.Row="1" Source="../../src/wait.png" Stretch="None">
-                    <Image.Style>
-                        <Style TargetType="{x:Type Image}">
+
+                <fa:ImageAwesome Grid.Row="1" Icon="CircleOutlineNotch" Spin="true" SpinDuration="4" Width="50" Height="50">
+                    <fa:ImageAwesome.Style>
+                        <Style TargetType="{x:Type fa:ImageAwesome}">
                             <Setter Property="Visibility" Value="Hidden" />
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding Text, ElementName=LobbyInfo}" Value="Finding match...">
@@ -41,9 +37,10 @@
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
-                    </Image.Style>
-
-                </Image>
+                    </fa:ImageAwesome.Style>
+                </fa:ImageAwesome>
+                
+               
             </Grid>
         </Grid>
     </DockPanel>

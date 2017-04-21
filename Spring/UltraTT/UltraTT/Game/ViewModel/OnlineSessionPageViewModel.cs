@@ -4,6 +4,7 @@ using System.Windows.Input;
 using GameLogic;
 using UltraTT.Game.Model;
 using UltraTT.View;
+using UttUserService.Social;
 
 namespace UltraTT.Game.ViewModel
 {
@@ -19,10 +20,6 @@ namespace UltraTT.Game.ViewModel
             DefaultSetup(_model);
             GameInfo = "Waiting for an opponent";
             NewGame();
-            /*while (_model.Owner == Cell.Empty)
-            {
-
-            }*/
         }
 
 
@@ -43,6 +40,38 @@ namespace UltraTT.Game.ViewModel
 
 
 
+        private User _crossUser;
+        public User CrossUser
+        {
+            get
+            {
+                return _crossUser;
+            }
+            set
+            {
+                _crossUser = value;
+
+                OnPropertyChanged();
+            }
+        }
+
+
+        private User _noughtUser;
+        public User NoughtUser
+        {
+            get
+            {
+                return _noughtUser;
+            }
+            set
+            {
+                _noughtUser = value;
+
+                OnPropertyChanged();
+            }
+        }
+
+
         public override void GotWinnerHandler(object sender, Cell arg)
         {
             GameInfo = arg == _model.Owner ? "YOU WIN!" : "you lose(";
@@ -51,8 +80,18 @@ namespace UltraTT.Game.ViewModel
 
         public override void OwnerSwitchedHandler(object sender, Cell arg)
         {
-            GameInfo = arg == _model.Owner ? "Your turn" : "Waiting for an opponent";
+            if (CrossUser == null || NoughtUser == null) SetupSides(); 
+            GameInfo = arg == _model.Owner ? "Your turn" : "Waiting for an opponent's step";
             CommandManager.InvalidateRequerySuggested();
+        }
+
+        private void SetupSides()
+        {
+            var service = new StatService();
+            var owner = service.GetUserAndStatistics(Navigator.GetInstance().Principal.Identity.Name);
+            var opponent = service.GetUserAndStatistics(_opponentUsername);
+            CrossUser = _model.Owner == Cell.Cross ? owner : opponent;
+            NoughtUser = _model.Owner != Cell.Cross ? owner : opponent;
         }
 
         public override bool IsCellValid(object obj)

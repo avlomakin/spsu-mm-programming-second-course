@@ -4,6 +4,10 @@ using System.Linq;
 
 namespace UttUserService.Social
 {
+
+    /// <summary>
+    /// TODO: RENAME SERVICE
+    /// </summary>
     public class StatService
     {
         public List<User> GetTop()
@@ -19,6 +23,14 @@ namespace UttUserService.Social
         public User GetUserAndStatistics()
         {
             return new User("Admin", 999)
+            {
+                Statistics = new Statistics(99.2, 100, 76.3, 1234)
+            };
+        }
+
+        public User GetUserAndStatistics(string username)
+        {
+            return new User(username, 999)
             {
                 Statistics = new Statistics(99.2, 100, 76.3, 1234)
             };

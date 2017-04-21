@@ -7,78 +7,54 @@
       xmlns:local="clr-namespace:UltraTT.Game.View"
       xmlns:viewModel="clr-namespace:UltraTT.Game.ViewModel"
       mc:Ignorable="d" 
-      d:DesignHeight="340" d:DesignWidth="270"
+      d:DesignHeight="340" d:DesignWidth="600"
       d:DataContext="{d:DesignInstance viewModel:OnlineSessionPageViewModel}"
       Name="GamePage"
       Title="OnlineSessionPageView">
 
     <Page.Resources>
+        <ControlTemplate x:Key="UserTemplate">
+            <Border Margin="10">
+                <StackPanel Margin="5" Orientation="Vertical">
 
-        <Style TargetType="Button" x:Key="GridButton">
-            <Setter Property="Height" Value="{Binding ElementName=GamePage, Path=DataContext.CellSize}"/>
-            <Setter Property="Width" Value="{Binding ElementName=GamePage, Path=DataContext.CellSize}"/>
-            <Setter Property="Padding" Value="0"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Command" Value="{Binding ElementName=GamePage, Path=DataContext.CellClick}"/>
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="CommandParameter" Value="{Binding Coords}"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Name="Border">
-                            <ContentPresenter/>
-                        </Border>
-
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter TargetName="Border" Property="Background" Value="LightGray"/>
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Border" Property="BorderThickness" Value="1"/>
-                                <Setter TargetName="Border" Property="BorderBrush" Value="DarkRed"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <DataTemplate x:Key="SmallCellTemplate">
-            <Button Style="{StaticResource GridButton}">
-                <Image Source="{Binding PictSource}"/>
-            </Button>
-        </DataTemplate>
-
-        <DataTemplate x:Key="FineFieldTemplate">
-            <ItemsControl ItemsSource="{Binding}" ItemTemplate="{DynamicResource SmallCellTemplate}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
-        </DataTemplate>
-
-
-        <DataTemplate x:Key="BigCellTemplate">
-            <Border Background="Transparent" BorderThickness="0"
-                    Width="{c:Binding ElementName=GamePage, Path=DataContext.CellSize*3}" Height="{c:Binding ElementName=GamePage, Path=DataContext.CellSize*3}">
-                <Image Source="{Binding PictSource}"                 
-                       Stretch="Fill"/>
+                    <Image Source="{Binding Path=Avatar, TargetNullValue='../../src/noavatar_small.png'}"  Stretch="Fill" Width="60" Height="60"/>
+                    <TextBlock FontSize="18" FontWeight="Bold" Text="{Binding Path=Username}"/>
+                    <TextBlock Foreground="DimGray" Text="{Binding Path=Score}" FontWeight="DemiBold" Padding="5, 0, 0, 0"/>
+                </StackPanel>
             </Border>
-        </DataTemplate>
+        </ControlTemplate>
 
-        <DataTemplate x:Key="CoarseFieldTemplate">
-            <ItemsControl ItemsSource="{Binding}" ItemTemplate="{DynamicResource BigCellTemplate}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
-        </DataTemplate>
+        <ControlTemplate x:Key="CrossTemplate">
+            <Grid>
+                <Grid.Background>
+                    <ImageBrush ImageSource="../../src/background_cross.png"
+                                TileMode="FlipXY" 
+                                Stretch="Uniform"
+                                AlignmentY="Top"
+                                Viewport="20,10,50,50"
+                                ViewportUnits="Absolute"/>
+                </Grid.Background>
 
+                <ContentControl Template="{StaticResource UserTemplate}" DataContext="{Binding}"/>
+            </Grid>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="NoughtTemplate">
+            <Grid>
+                <Grid.Background>
+                    <ImageBrush ImageSource="../../src/background_nought.png"
+                                TileMode="FlipXY" 
+                                Stretch="Uniform"
+                                AlignmentY="Top"
+                                Viewport="20,10,50,50"
+                                ViewportUnits="Absolute"/>
+                </Grid.Background>
+
+                <ContentControl Template="{StaticResource UserTemplate}" DataContext="{Binding}"/>
+            </Grid>
+        </ControlTemplate>
     </Page.Resources>
+   
 
     <Grid Height="Auto" Width="Auto" SnapsToDevicePixels="True">
         <Grid.RowDefinitions>
@@ -87,19 +63,29 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <ContentControl Grid.Column="0" Template="{StaticResource CrossTemplate}" 
+                            DataContext="{Binding CrossUser}"/>
+
+            <local:BattleFieldView Grid.Column="1" BigCells="{Binding BigCells}" SmallCells="{Binding SmallCells}"
+                                   CellSize="{Binding CellSize}" CellClick="{Binding CellClick}"/>
 
 
-        <Grid Margin="0, 2, 0, 3">
+            <ContentControl Grid.Column="2" Template="{StaticResource NoughtTemplate}" 
+                            DataContext="{Binding NoughtUser}"/>
+
+        </Grid>
+
+
+        <Grid Grid.Row="0" Margin="0, 2, 0, 3" HorizontalAlignment="Center">
             <Label FontWeight="DemiBold"  Content="{Binding GameInfo, Mode=OneWay}" HorizontalAlignment="Left"/>
         </Grid>
-
-
-        <Grid  Grid.Row="1" Name="FieldHolder" VerticalAlignment="Top">
-            <ItemsControl ItemsSource="{Binding SmallCells}" ItemTemplate="{DynamicResource FineFieldTemplate}"/>
-            <ItemsControl IsHitTestVisible="False" ItemsSource="{Binding BigCells}" ItemTemplate="{DynamicResource CoarseFieldTemplate}"/>
-            <Canvas ZIndex="5" Name="BigCellsHolder"/>
-            <Image Panel.ZIndex="5" Name="FieldImg" 
-                   Source="../../src/game/field.png" Stretch="None" IsHitTestVisible="False"/>
-        </Grid>
+        
     </Grid>
 </Page>

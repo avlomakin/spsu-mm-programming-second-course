@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Windows.Controls;
+using UltraTT.View;
 
 namespace UltraTT.Game.View
 {
@@ -11,7 +12,7 @@ namespace UltraTT.Game.View
         public WelcomePageView()
         {
             InitializeComponent();
-            WelcomeLabel.Content = "Welcome, " + Thread.CurrentPrincipal.Identity.Name;
+            WelcomeLabel.Content = "Welcome, " + Navigator.GetInstance().Principal.Identity.Name;
         }
     }
 }
