@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="GameService.GameSession.GameSessionMoveDto">
+    <Position X="6.5" Y="2.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAgAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>GameSession\GameSessionMoveDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameService.GameSession.GameSessionService">
+    <Position X="4.25" Y="0.5" Width="4" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAEAAAAAAAAAgAgAAAAABAAAAAAAIAAAAAAEAAA=</HashCode>
+      <FileName>GameSession\GameSessionService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_sender" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="GameService.GameSession.IGameSessionService">
+    <Position X="0.75" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAgAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>GameSession\IGameSessionService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GameService.GameSession.IGameSessionServiceCallback">
+    <Position X="1.5" Y="2.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GameSession\IGameSessionServiceCallback.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
