@@ -1,8 +1,7 @@
 ﻿namespace UttUserService.Security
 {
-    public enum Role : byte
+    public enum Role
     {
-        Adminsitrator,
-        User
+        
     }
 }

@@ -1,8 +1,10 @@
-﻿namespace GameLogic
+﻿using System;
+
+namespace GameLogic
 {
     public class BigCell
     {
-        public Cell[] Cells;
+        public Cell[] Cells { get; }
 
         public BigCell()
         {
@@ -13,17 +15,22 @@
             }
         }
 
-        public bool TrySet(int position, Cell cell)
+        internal void Set(int position, Cell owner)
         {
+            if (position > 8 || position < 0) throw new ArgumentOutOfRangeException(nameof(position));            
+            if (owner == Cell.Empty) throw new ArgumentOutOfRangeException(nameof(owner));
+
             if (Cells[position] == Cell.Empty)
             {
-                Cells[position] = cell;
-                return true;
+                Cells[position] = owner;
             }
-            return false;
+            else
+            {
+                throw new CellAlreadyFilledException();
+            }
         }
 
-        public Cell Check()
+        internal Cell Check()
         {
             if (Cells[0] == Cells[1] && Cells[0] == Cells[2] && Cells[0] != Cell.Empty) //horizontal
             {

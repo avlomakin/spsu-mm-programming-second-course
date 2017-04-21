@@ -17,8 +17,6 @@ namespace UltraTT
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-
-            //Create a custom principal with an anonymous identity at startup
             UttPrincipal customPrincipal = new UttPrincipal();
             AppDomain.CurrentDomain.SetThreadPrincipal(customPrincipal);
 

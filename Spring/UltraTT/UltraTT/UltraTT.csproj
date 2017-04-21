@@ -59,6 +59,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -79,61 +81,81 @@
     </ApplicationDefinition>
     <Compile Include="Command\RelayCommand.cs" />
     <Compile Include="Command\SimpleCommand.cs" />
-    <Compile Include="Model\HotSeatModel.cs" />
+    <Compile Include="Game\Model\GameModel.cs" />
+    <Compile Include="Game\Model\HotSeatModel.cs" />
+    <Compile Include="Game\Model\OnlineLobbyPageModel.cs" />
+    <Compile Include="Game\Model\OnlineSessionModel.cs" />
+    <Compile Include="Game\ViewModel\OnlineLobbyPageViewModel.cs" />
+    <Compile Include="Game\View\OnlineLobbyPageView.xaml.cs">
+      <DependentUpon>OnlineLobbyPageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Game\View\OnlineSessionPageView.xaml.cs">
+      <DependentUpon>OnlineSessionPageView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\StringEventArgs.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
-    <Compile Include="ViewModel\Game\HotSeatPageViewModel.cs" />
-    <Compile Include="ViewModel\Game\TopHubPageViewModel.cs" />
-    <Compile Include="ViewModel\Game\ViewModelCell.cs" />
-    <Compile Include="ViewModel\Login\AuthPageViewModel.cs" />
-    <Compile Include="ViewModel\Social\LeaderboardPageViewModel.cs" />
-    <Compile Include="ViewModel\Social\UserPageViewModel.cs" />
-    <Compile Include="View\Game\BorderConverter.cs" />
-    <Compile Include="View\Game\WelcomePageView.xaml.cs">
+    <Compile Include="Game\ViewModel\GameViewModel.cs" />
+    <Compile Include="Game\ViewModel\HotSeatPageViewModel.cs" />
+    <Compile Include="Game\ViewModel\OnlineSessionPageViewModel.cs" />
+    <Compile Include="Game\ViewModel\TopHubPageViewModel.cs" />
+    <Compile Include="Game\ViewModel\ViewModelCell.cs" />
+    <Compile Include="Security\ViewModel\AuthPageViewModel.cs" />
+    <Compile Include="Security\ViewModel\RegPageViewModel.cs" />
+    <Compile Include="Social\ViewModel\LeaderboardPageViewModel.cs" />
+    <Compile Include="Social\ViewModel\UserPageViewModel.cs" />
+    <Compile Include="Game\View\WelcomePageView.xaml.cs">
       <DependentUpon>WelcomePageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\HostWindowView.xaml.cs">
       <DependentUpon>HostWindowView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\IContentHolder.cs" />
-    <Compile Include="View\Game\GameHostPageView.xaml.cs">
+    <Compile Include="Game\View\GameHostPageView.xaml.cs">
       <DependentUpon>GameHostPageView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Game\HotSeatPageView.xaml.cs">
+    <Compile Include="Game\View\HotSeatPageView.xaml.cs">
       <DependentUpon>HotSeatPageView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Game\TopHubPageView.xaml.cs">
+    <Compile Include="Game\View\TopHubPageView.xaml.cs">
       <DependentUpon>TopHubPageView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Login\AuthPageView.xaml.cs">
+    <Compile Include="Security\View\AuthPageView.xaml.cs">
       <DependentUpon>AuthPageView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Login\RegPageView.xaml.cs">
+    <Compile Include="Security\View\RegPageView.xaml.cs">
       <DependentUpon>RegPageView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Login\WelcomePageView.xaml.cs">
+    <Compile Include="Security\View\WelcomePageView.xaml.cs">
       <DependentUpon>WelcomePageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Navigator.cs" />
-    <Compile Include="View\Social\LeaderboardPageView.xaml.cs">
+    <Compile Include="Social\View\LeaderboardPageView.xaml.cs">
       <DependentUpon>LeaderboardPageView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Social\UserPageView.xaml.cs">
+    <Compile Include="Social\View\UserPageView.xaml.cs">
       <DependentUpon>UserPageView.xaml</DependentUpon>
     </Compile>
-    <Page Include="View\Game\GameHostPageView.xaml">
+    <Page Include="Game\View\GameHostPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Game\HotSeatPageView.xaml">
+    <Page Include="Game\View\HotSeatPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Game\TopHubPageView.xaml">
+    <Page Include="Game\View\OnlineLobbyPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Game\WelcomePageView.xaml">
+    <Page Include="Game\View\OnlineSessionPageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Game\View\TopHubPageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Game\View\WelcomePageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -141,7 +163,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Login\AuthPageView.xaml">
+    <Page Include="Security\View\AuthPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -149,19 +171,19 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\Login\RegPageView.xaml">
+    <Page Include="Security\View\RegPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Login\WelcomePageView.xaml">
+    <Page Include="Security\View\WelcomePageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Social\LeaderboardPageView.xaml">
+    <Page Include="Social\View\LeaderboardPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Social\UserPageView.xaml">
+    <Page Include="Social\View\UserPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -184,11 +206,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Social.cd" />
-    <None Include="TopHubDiagram.cd" />
-    <None Include="NavigatorDiagram.cd" />
-    <None Include="AuthDiagram.cd" />
-    <None Include="HotSeatClassDiagram.cd" />
+    <None Include="Diagrams\Social.cd" />
+    <None Include="Diagrams\TopHubDiagram.cd" />
+    <None Include="Diagrams\NavigatorDiagram.cd" />
+    <None Include="Diagrams\AuthDiagram.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -197,12 +218,19 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="src\leaderboard.png" />
+    <Resource Include="src\wait.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ExternalServices\ExternalServices.csproj">
+      <Project>{4D839710-73AA-4D84-BA66-A54AB62A6652}</Project>
+      <Name>ExternalServices</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GameLogic\GameLogic.csproj">
       <Project>{CC43ABF1-96C8-4497-8EA1-D05B96E24F51}</Project>
       <Name>GameLogic</Name>
@@ -235,6 +263,10 @@
   <ItemGroup>
     <Resource Include="src\game\cells\big_cross.png" />
     <Resource Include="src\game\cells\big_nought.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Security\Model\" />
+    <Folder Include="Social\Model\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

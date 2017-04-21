@@ -1,4 +1,6 @@
-﻿namespace GameLogic
+﻿using System;
+
+namespace GameLogic
 {
     public enum Cell
     {

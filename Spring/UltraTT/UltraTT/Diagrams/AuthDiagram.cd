@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="UltraTT.Security.View.AuthPageView">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Security\View\AuthPageView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="viewModel" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="UltraTT.Security.ViewModel.AuthPageViewModel">
+    <Position X="3.5" Y="0.5" Width="2.75" />
+    <AssociationLine Name="_loginCommand" Type="UltraTT.Command.SimpleCommand" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.719" Y="3.79" />
+        <Point X="4.719" Y="6.5" />
+        <Point X="6.5" Y="6.5" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="LoginCommand" Type="UltraTT.Command.SimpleCommand" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.078" Y="3.79" />
+        <Point X="4.078" Y="4.625" />
+        <Point X="4.636" Y="4.625" Type="JumpStart" />
+        <Point X="4.802" Y="4.625" Type="JumpEnd" />
+        <Point X="7.25" Y="4.625" />
+        <Point X="7.25" Y="5" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAIAAAAAQAQACAAAAAAAAACQAIQAACAAAA=</HashCode>
+      <FileName>Security\ViewModel\AuthPageViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_loginCommand" />
+      <Property Name="LoginCommand" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="UltraTT.Command.SimpleCommand">
+    <Position X="6.5" Y="5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAQAAEAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Command\SimpleCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="1.252" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

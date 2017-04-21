@@ -1,6 +1,4 @@
-﻿using System.Windows.Controls;
-
-namespace UltraTT.View.Game
+﻿namespace UltraTT.View
 {
     public interface IContentHolder
     {

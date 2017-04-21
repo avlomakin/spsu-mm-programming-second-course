@@ -42,6 +42,8 @@
   <ItemGroup>
     <Compile Include="BigCell.cs" />
     <Compile Include="Cell.cs" />
+    <Compile Include="CellAlreadyFilledException.cs" />
+    <Compile Include="CellExtensions.cs" />
     <Compile Include="Field.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

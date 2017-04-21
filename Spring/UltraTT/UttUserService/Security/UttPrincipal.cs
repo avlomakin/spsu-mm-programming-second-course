@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Security.Principal;
+using UttUserService.ServiceRef;
 
 namespace UttUserService.Security
 {

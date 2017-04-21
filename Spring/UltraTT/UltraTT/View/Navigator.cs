@@ -1,11 +1,15 @@
-﻿using UltraTT.View.Game;
-using UltraTT.View.Login;
+﻿using UltraTT.Game.View;
+using UltraTT.Security.View;
+using UttUserService.Security;
+using WelcomePageView = UltraTT.Game.View.WelcomePageView;
 
 namespace UltraTT.View
 {
     public class Navigator
     {
         private static Navigator _navigator;
+
+        public UttPrincipal Principal { get; set; }
 
         private IContentHolder _currentHolder;
 
@@ -30,7 +34,7 @@ namespace UltraTT.View
             var gamePage = new GameHostPageView();
             _currentHolder.ShowContent(gamePage);
             _currentHolder = gamePage;
-            _currentHolder.ShowContent(new Game.WelcomePageView());
+            _currentHolder.ShowContent(new WelcomePageView());
         }
 
         public void Show(object content)

@@ -1,10 +1,12 @@
-﻿namespace GameLogic
+﻿using System;
+
+namespace GameLogic
 {
     public class Field
     {
-        public BigCell CoarseField;
+        public BigCell CoarseField { get; }
 
-        public BigCell[] FineField;
+        public BigCell[] FineField { get; }
 
         public Field()
         {
@@ -16,24 +18,17 @@
             }
         }
 
-        public bool TrySet(int curCell, int position, Cell cell)
+        public void Set(int bigCell, int position, Cell owner)
         {
-            var result = FineField[curCell].TrySet(position, cell);
-            if (!result) return false;
-            if (FineField[curCell].Check() != Cell.Empty)
+            if (bigCell > 8 || bigCell < 0) throw new ArgumentOutOfRangeException(nameof(position));
+
+            FineField[bigCell].Set(position, owner);
+            if (FineField[bigCell].Check() != Cell.Empty)
             {
-                CoarseField.TrySet(curCell, cell);
+                CoarseField.Set(bigCell, owner);
             }
-
-            return true;
         }
-
-
-
-        public Cell Check()
-        {
-            return CoarseField.Check();
-        }
+        public Cell Check() => CoarseField.Check();
 
     }
 }
