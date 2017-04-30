@@ -21,5 +21,13 @@ namespace UttUserService.Security
                 };
             }
         }
+
+        public void RegUser(string username, string password)
+        {
+            using (var client = new ServiceRef.UserServiceClient("NetTcpBinding_IUserService"))
+            {
+                client.Reg(username, password);
+            }
+        }
     }
 }

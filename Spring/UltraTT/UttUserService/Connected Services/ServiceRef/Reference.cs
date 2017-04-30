@@ -15,7 +15,7 @@ namespace UttUserService.ServiceRef {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="UserDto", Namespace="http://schemas.datacontract.org/2004/07/UserService")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UserDto", Namespace="http://schemas.datacontract.org/2004/07/UserService.Dto")]
     [System.SerializableAttribute()]
     public partial class UserDto : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -92,15 +92,24 @@ namespace UttUserService.ServiceRef {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="AuthFault", Namespace="http://schemas.datacontract.org/2004/07/UserService.Errors")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="StatDto", Namespace="http://schemas.datacontract.org/2004/07/UserService.Dto")]
     [System.SerializableAttribute()]
-    public partial class AuthFault : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class StatDto : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ErrorField;
+        private double CrossWinrateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double NoughtWinrateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ScoreField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double TotalWinrateField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -113,14 +122,53 @@ namespace UttUserService.ServiceRef {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Error {
+        public double CrossWinrate {
             get {
-                return this.ErrorField;
+                return this.CrossWinrateField;
             }
             set {
-                if ((object.ReferenceEquals(this.ErrorField, value) != true)) {
-                    this.ErrorField = value;
-                    this.RaisePropertyChanged("Error");
+                if ((this.CrossWinrateField.Equals(value) != true)) {
+                    this.CrossWinrateField = value;
+                    this.RaisePropertyChanged("CrossWinrate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double NoughtWinrate {
+            get {
+                return this.NoughtWinrateField;
+            }
+            set {
+                if ((this.NoughtWinrateField.Equals(value) != true)) {
+                    this.NoughtWinrateField = value;
+                    this.RaisePropertyChanged("NoughtWinrate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Score {
+            get {
+                return this.ScoreField;
+            }
+            set {
+                if ((this.ScoreField.Equals(value) != true)) {
+                    this.ScoreField = value;
+                    this.RaisePropertyChanged("Score");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double TotalWinrate {
+            get {
+                return this.TotalWinrateField;
+            }
+            set {
+                if ((this.TotalWinrateField.Equals(value) != true)) {
+                    this.TotalWinrateField = value;
+                    this.RaisePropertyChanged("TotalWinrate");
                 }
             }
         }
@@ -140,16 +188,15 @@ namespace UttUserService.ServiceRef {
     public interface IUserService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/Auth", ReplyAction="http://tempuri.org/IUserService/AuthResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(UttUserService.ServiceRef.AuthFault), Action="http://tempuri.org/IUserService/AuthAuthFaultFault", Name="AuthFault", Namespace="http://schemas.datacontract.org/2004/07/UserService.Errors")]
         UttUserService.ServiceRef.UserDto Auth(string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/Auth", ReplyAction="http://tempuri.org/IUserService/AuthResponse")]
         System.Threading.Tasks.Task<UttUserService.ServiceRef.UserDto> AuthAsync(string username, string password);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/Reg", ReplyAction="http://tempuri.org/IUserService/RegResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IUserService/Reg")]
         void Reg(string username, string password);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/Reg", ReplyAction="http://tempuri.org/IUserService/RegResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IUserService/Reg")]
         System.Threading.Tasks.Task RegAsync(string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/GetTop", ReplyAction="http://tempuri.org/IUserService/GetTopResponse")]
@@ -157,6 +204,18 @@ namespace UttUserService.ServiceRef {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/GetTop", ReplyAction="http://tempuri.org/IUserService/GetTopResponse")]
         System.Threading.Tasks.Task<UttUserService.ServiceRef.UserDto[]> GetTopAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/GetScore", ReplyAction="http://tempuri.org/IUserService/GetScoreResponse")]
+        int GetScore(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/GetScore", ReplyAction="http://tempuri.org/IUserService/GetScoreResponse")]
+        System.Threading.Tasks.Task<int> GetScoreAsync(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/GetStat", ReplyAction="http://tempuri.org/IUserService/GetStatResponse")]
+        UttUserService.ServiceRef.StatDto GetStat(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/GetStat", ReplyAction="http://tempuri.org/IUserService/GetStatResponse")]
+        System.Threading.Tasks.Task<UttUserService.ServiceRef.StatDto> GetStatAsync(string username);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -208,6 +267,22 @@ namespace UttUserService.ServiceRef {
         
         public System.Threading.Tasks.Task<UttUserService.ServiceRef.UserDto[]> GetTopAsync() {
             return base.Channel.GetTopAsync();
+        }
+        
+        public int GetScore(string username) {
+            return base.Channel.GetScore(username);
+        }
+        
+        public System.Threading.Tasks.Task<int> GetScoreAsync(string username) {
+            return base.Channel.GetScoreAsync(username);
+        }
+        
+        public UttUserService.ServiceRef.StatDto GetStat(string username) {
+            return base.Channel.GetStat(username);
+        }
+        
+        public System.Threading.Tasks.Task<UttUserService.ServiceRef.StatDto> GetStatAsync(string username) {
+            return base.Channel.GetStatAsync(username);
         }
     }
 }

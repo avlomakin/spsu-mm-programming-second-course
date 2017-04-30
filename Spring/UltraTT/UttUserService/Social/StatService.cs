@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UttUserService.ServiceRef;
 
 namespace UttUserService.Social
 {
@@ -20,20 +21,17 @@ namespace UttUserService.Social
             }
         }
 
-        public User GetUserAndStatistics()
-        {
-            return new User("Admin", 999)
-            {
-                Statistics = new Statistics(99.2, 100, 76.3, 1234)
-            };
-        }
-
         public User GetUserAndStatistics(string username)
         {
-            return new User(username, 999)
+            using (var client = new ServiceRef.UserServiceClient("NetTcpBinding_IUserService"))
             {
-                Statistics = new Statistics(99.2, 100, 76.3, 1234)
-            };
+                var stat = client.GetStat(username);
+                return new User(username, stat.Score)
+                {
+                    Statistics = stat
+                };
+            }
+
         }
     }
 }

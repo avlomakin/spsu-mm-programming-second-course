@@ -98,6 +98,12 @@
     <Compile Include="Game\View\OnlineSessionPageView.xaml.cs">
       <DependentUpon>OnlineSessionPageView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Game\View\OnlineVersusView.xaml.cs">
+      <DependentUpon>OnlineVersusView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Game\View\SessionResultView.xaml.cs">
+      <DependentUpon>SessionResultView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\StringEventArgs.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="Game\ViewModel\GameViewModel.cs" />
@@ -158,6 +164,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Game\View\OnlineSessionPageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Game\View\OnlineVersusView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Game\View\SessionResultView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -280,6 +294,15 @@
   <ItemGroup>
     <Resource Include="src\background_cross.png" />
     <Resource Include="src\background_nought.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="src\online.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="src\hotseat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="src\game\VS.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -30,15 +30,14 @@
   <Class Name="UserService.UserService">
     <Position X="0.75" Y="2.25" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAACABAAAAAgAAAAAAgAAAAAAAAAAAEAAAABAAAAA=</HashCode>
+      <HashCode>AACAAAABAAAAAgAAAAAAgAAAAAAAAAAAEAAAgBAAAAA=</HashCode>
       <FileName>UserService.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Interface Name="UserService.IUserService">
     <Position X="2.5" Y="0.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAgAAAAAAgAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <HashCode>AACAAAAAAAAAAgAAAAAAgAAAAAAAAAAAAAAAgBAAAAA=</HashCode>
       <FileName>IUserService.cs</FileName>
     </TypeIdentifier>
   </Interface>

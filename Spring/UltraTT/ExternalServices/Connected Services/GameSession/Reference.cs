@@ -106,6 +106,12 @@ namespace ExternalServices.GameSession {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IGameSessionService/Step")]
         System.Threading.Tasks.Task StepAsync(int bigCell, int position);
         
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IGameSessionService/Won")]
+        void Won();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IGameSessionService/Won")]
+        System.Threading.Tasks.Task WonAsync();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGameSessionService/Sync", ReplyAction="http://tempuri.org/IGameSessionService/SyncResponse")]
         ExternalServices.GameSession.GameSessionMoveDto[] Sync();
         
@@ -165,6 +171,14 @@ namespace ExternalServices.GameSession {
         
         public System.Threading.Tasks.Task StepAsync(int bigCell, int position) {
             return base.Channel.StepAsync(bigCell, position);
+        }
+        
+        public void Won() {
+            base.Channel.Won();
+        }
+        
+        public System.Threading.Tasks.Task WonAsync() {
+            return base.Channel.WonAsync();
         }
         
         public ExternalServices.GameSession.GameSessionMoveDto[] Sync() {

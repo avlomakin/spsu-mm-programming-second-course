@@ -1,62 +1,84 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.ServiceModel;
 using System.Text;
-using UserService.Errors;
+using DatabaseAccess;
+using StatDto = UserService.Dto.StatDto;
+using UserDto = UserService.Dto.UserDto;
 
 namespace UserService
 {
 
     public class UserService : IUserService
     {
+        //TODO:NINJECT
+        public UserDAO UserDao { private get; set; }
+        public StatDAO StatDao { private get; set; }
+
+        public UserService()
+        {
+            UttContext context = new UttContext();
+            UserDao = new UserDAO()
+            {
+                Context =  context
+            };
+
+            StatDao = new StatDAO()
+            {
+                Context = context
+            };
+        }
+
+        #region SECURITY
+
         public UserDto Auth(string username, string password)
         {
-            User user = Users.FirstOrDefault(u => u.Username == username);
-
-
             Console.WriteLine(username + " connected");
 
-            if (user == null)
+            try
             {
-                throw new FaultException<AuthFault>(new AuthFault("auth failed"), new FaultReason("auth failed"));
-            }
+                var user = UserDao.Validate(username, CalculateHash(password));
 
-            Password userPassword = user.Password;
-
-            if (userPassword == null)
-            {
-                throw new FaultException<AuthFault>(new AuthFault("auth failed"), new FaultReason("auth failed"));
-            }
-
-            string hashPassword = CalculateHash(password, userPassword.Salt);
-
-            if (hashPassword == userPassword.Hash)
-            {
-                return new UserDto()
+                //TODO: REMASTER IT!!!!!
+                var roles = new List<int> { (int)Role.Adminsitrator, (int)Role.User };
+                return new UserDto
                 {
                     Username = user.Username,
-                    Roles = user.Roles.Select(i => (int) i).ToList()
+                    Roles = roles
                 };
             }
-            throw new FaultException<AuthFault>(new AuthFault("auth failed"), new FaultReason("auth failed"));
+            catch (Exception)
+            {
+                throw new FaultException(new FaultReason("auth failed"));
+            }
+
+
+
+
         }
 
         public void Reg(string username, string password)
         {
-            var user = new User();
-            user.Username = username;
-            user.Roles = new List<Role>(){Role.User};
-            user.Password = new Password {Salt = "123"};
-            user.Password.Hash = CalculateHash(password, user.Password.Salt);
-            Users.Add(user);
+
+            try
+            {
+                var hash = CalculateHash(password);
+                UserDao.CreateUser(username, hash);
+                StatDao.CreatetStat(username);
+                Console.WriteLine(username + " reged");
+            }
+            catch (Exception)
+            {
+                throw new FaultException(new FaultReason("reg failed"));
+            }
+
         }
 
-        private string CalculateHash(string textPassword, string salt)
+        private static string CalculateHash(string textPassword)
         {
-            byte[] saltedHashBytes = Encoding.UTF8.GetBytes(textPassword + salt);
+            byte[] saltedHashBytes = Encoding.UTF8.GetBytes(textPassword);
 
             HashAlgorithm algorithm = new SHA256Managed();
             byte[] hash = algorithm.ComputeHash(saltedHashBytes);
@@ -65,59 +87,50 @@ namespace UserService
         }
 
 
+        #endregion
+
+
+        #region SOCIAL
+
+
         public List<UserDto> GetTop()
         {
-            return UserStorage();
+            return StatDao.GetTop().Select(i => new UserDto(i.User.Username, i.Score)).ToList();
         }
 
-        #region NeedDelete
-
-        private static List<User> Users = new List<User>()
+        public int GetScore(string username)
         {
-            new User()
+            try
             {
-                Id = 1,
-                Roles = new List<Role>()
-                {
-                    Role.User,
-                    Role.Adminsitrator
-                },
-                Username = "Admin",
-                Password = new Password()
-                {
-                    Id = 1,
-                    Hash = "xwTbOsdKA0KO76NurjcxBTZPDtohnWAVwO8ui0BWwfU=",
-                    Salt = "123"
-                }
-            },
-            new User()
-            {
-                Id = 1,
-                Roles = new List<Role>()
-                {
-                    Role.User,
-                },
-                Username = "Pashko",
-                Password = new Password()
-                {
-                    Id = 1,
-                    Hash = "xwTbOsdKA0KO76NurjcxBTZPDtohnWAVwO8ui0BWwfU=",
-                    Salt = "123"
-                }
+                return StatDao.GetScore(username);
             }
-        };
-
-
-        private static List<UserDto> UserStorage()
-        {
-            var rnd = new Random();
-            return new List<UserDto>(Enumerable.Repeat(new UserDto()
+            catch (Exception)
             {
-                Username = "Loser",
-                Score = 1234
-            }, 10));
+                throw new FaultException(new FaultReason("failed"));
+            }
+        }
+
+        public StatDto GetStat(string username)
+        {
+            try
+            {
+                var stat = StatDao.GetStat(username);
+                var result = new StatDto();
+                result.Score = stat.Score;
+                result.CrossWinrate = Math.Round(stat.WonCross / (double) stat.PlayedCross, 2);
+                result.NoughtWinrate = Math.Round(stat.WonNought / (double)stat.PlayedNought, 2);
+                result.TotalWinrate = Math.Round((stat.WonCross + stat.WonNought) /
+                                      (double) (stat.PlayedCross + stat.PlayedNought), 2);
+
+                return result;
+            }
+            catch (Exception)
+            {
+                throw new FaultException(new FaultReason("Blabla"));
+            }
         }
 
         #endregion
+
     }
 }

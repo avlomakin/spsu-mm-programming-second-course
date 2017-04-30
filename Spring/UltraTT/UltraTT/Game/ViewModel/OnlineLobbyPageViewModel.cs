@@ -33,7 +33,7 @@ namespace UltraTT.Game.ViewModel
             FindMatchCommand = null;
             Thread.Sleep(1000);
             
-            Navigator.GetInstance().Show(new OnlineSessionPageView(e));
+            Navigator.GetInstance().OnlineSessionFound(e);
         }
 
         private void FindMatch()

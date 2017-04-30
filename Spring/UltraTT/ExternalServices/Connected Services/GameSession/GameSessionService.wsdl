@@ -42,6 +42,9 @@
   <wsdl:message name="IGameSessionService_Step_InputMessage">
     <wsdl:part name="parameters" element="tns:Step" />
   </wsdl:message>
+  <wsdl:message name="IGameSessionService_Won_InputMessage">
+    <wsdl:part name="parameters" element="tns:Won" />
+  </wsdl:message>
   <wsdl:message name="IGameSessionService_Sync_InputMessage">
     <wsdl:part name="parameters" element="tns:Sync" />
   </wsdl:message>
@@ -60,6 +63,9 @@
     </wsdl:operation>
     <wsdl:operation name="Step">
       <wsdl:input wsaw:Action="http://tempuri.org/IGameSessionService/Step" message="tns:IGameSessionService_Step_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Won">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGameSessionService/Won" message="tns:IGameSessionService_Won_InputMessage" />
     </wsdl:operation>
     <wsdl:operation name="Sync">
       <wsdl:input wsaw:Action="http://tempuri.org/IGameSessionService/Sync" message="tns:IGameSessionService_Sync_InputMessage" />
@@ -83,6 +89,12 @@
     </wsdl:operation>
     <wsdl:operation name="Step">
       <soap12:operation soapAction="http://tempuri.org/IGameSessionService/Step" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="Won">
+      <soap12:operation soapAction="http://tempuri.org/IGameSessionService/Won" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

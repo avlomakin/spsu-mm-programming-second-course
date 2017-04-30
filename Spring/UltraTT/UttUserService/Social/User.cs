@@ -1,5 +1,6 @@
 ﻿using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using UttUserService.ServiceRef;
 
 namespace UttUserService.Social
 {
@@ -25,6 +26,6 @@ namespace UttUserService.Social
 
         public ImageSource Avatar { get; }
 
-        public Statistics Statistics { get; set; }
+        public StatDto Statistics { get; set; }
     }
 }

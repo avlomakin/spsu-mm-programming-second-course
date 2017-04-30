@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:8080/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/UserService" />
+  <xs:import schemaLocation="http://localhost:8080/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/UserService.Dto" />
   <xs:element name="Auth">
     <xs:complexType>
       <xs:sequence>
@@ -12,7 +12,7 @@
   <xs:element name="AuthResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/UserService" minOccurs="0" name="AuthResult" nillable="true" type="q1:UserDto" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/UserService.Dto" minOccurs="0" name="AuthResult" nillable="true" type="q1:UserDto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -24,11 +24,6 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="RegResponse">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
   <xs:element name="GetTop">
     <xs:complexType>
       <xs:sequence />
@@ -37,7 +32,35 @@
   <xs:element name="GetTopResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/UserService" minOccurs="0" name="GetTopResult" nillable="true" type="q2:ArrayOfUserDto" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/UserService.Dto" minOccurs="0" name="GetTopResult" nillable="true" type="q2:ArrayOfUserDto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetScore">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetScoreResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetScoreResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStat">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStatResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/UserService.Dto" minOccurs="0" name="GetStatResult" nillable="true" type="q3:StatDto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

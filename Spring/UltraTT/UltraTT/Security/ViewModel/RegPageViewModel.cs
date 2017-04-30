@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using UltraTT.Command;
+using UltraTT.Security.View;
 using UltraTT.View;
 using UltraTT.ViewModel;
 using UttUserService.Security;
@@ -50,6 +51,22 @@ namespace UltraTT.Security.ViewModel
         }
 
 
+        private string _confirm;
+        public string Confirm
+        {
+            get
+            {
+                return _confirm;
+            }
+            set
+            {
+                _confirm = value;
+
+                OnPropertyChanged();
+            }
+        }
+
+
         private string _errorText;
         public string ErrorText
         {
@@ -88,23 +105,16 @@ namespace UltraTT.Security.ViewModel
         {
             try
             {
-                ErrorText = String.Empty;
-                //Validate credentials through the authentication service
-                User user = _authenticationService.AuthenticateUser(Username, Password);
 
-                //Get the current principal object
-                UttPrincipal uttPrincipal = Thread.CurrentPrincipal as UttPrincipal;
-                if (uttPrincipal == null)
-                    throw new ArgumentException("The application's default thread principal must be set to a CustomPrincipal object on startup.");
+                if (Confirm != Password)
+                {
+                    ErrorText = "Passwords doesn't match";
+                    return;
+                }
 
-                //Authenticate the user
-                uttPrincipal.Identity = new UttIdentity(user.Username, user.Roles);
+                _authenticationService.RegUser(Username, Password);
 
-                Navigator.GetInstance().AuthCompleted();
-            }
-            catch (UnauthorizedAccessException)
-            {
-                ErrorText = "Username or password is incorrect";
+                Navigator.GetInstance().Show(new AuthPageView());
             }
             catch (Exception ex)
             {

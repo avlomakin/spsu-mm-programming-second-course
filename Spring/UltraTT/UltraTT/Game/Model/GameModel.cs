@@ -70,5 +70,10 @@ namespace UltraTT.Game.Model
         {
             OwnerSwitched?.Invoke(this, e);
         }
+
+        protected virtual void OnGotWinner(Cell e)
+        {
+            GotWinner?.Invoke(this, e);
+        }
     }
 }

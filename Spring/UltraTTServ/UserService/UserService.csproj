@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -43,24 +46,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Errors\AuthFault.cs" />
-    <Compile Include="Errors\RegFault.cs" />
     <Compile Include="IUserService.cs" />
-    <Compile Include="Password.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Role.cs" />
-    <Compile Include="UserDto.cs" />
-    <Compile Include="User.cs" />
+    <Compile Include="Dto\StatDto.cs" />
+    <Compile Include="Dto\UserDto.cs" />
     <Compile Include="UserService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ContractInterfaces\ContractInterfaces.csproj">
-      <Project>{999C33F6-A7E6-4CBC-B9F3-B8EBF5E9138B}</Project>
-      <Name>ContractInterfaces</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
+    <None Include="UserService.cd" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="UserService.cd" />
+    <ProjectReference Include="..\DatabaseAccess\DatabaseAccess.csproj">
+      <Project>{2366C703-DD88-4BDC-A584-5C965132D758}</Project>
+      <Name>DatabaseAccess</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

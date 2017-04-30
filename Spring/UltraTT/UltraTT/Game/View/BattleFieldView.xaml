@@ -77,7 +77,8 @@
     </UserControl.Resources>
 
 
-    <Grid Height="Auto" Width="Auto" SnapsToDevicePixels="True">
+    <Grid Height="{c:Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=CellSize*9}" 
+          Width="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=CellSize*9}" SnapsToDevicePixels="True">
         <ItemsControl ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=SmallCells}" ItemTemplate="{DynamicResource FineFieldTemplate}"/>
         <ItemsControl IsHitTestVisible="False" ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=BigCells}" ItemTemplate="{DynamicResource CoarseFieldTemplate}"/>
         <Image Panel.ZIndex="5" Name="FieldImg" 

@@ -2,9 +2,20 @@ Online session exceptions handler
 FieldView to UserControl +++++++++
 Add match wait animation +++++++++
 Async online session setup
-Reg page
+Reg page+++++++
 Social hubs in online session+_+
 Points earn
+RENAME USER SERVICES ON CLIENT SIDE
 UserPage remaster
 Credentials
-Include DB
+Include EF Postgres
+Self play
+Check for "user already logged in"
+Spring for Navigator 
+Check for "opponent is not responding"
+Play offline if log failed
+
+winrate with 0 games
+Get username and hash+++
+Post user++++
+ADD LOSING POINTS

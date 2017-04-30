@@ -21,10 +21,27 @@ namespace UltraTT.Game.View
     /// </summary>
     public partial class OnlineSessionPageView : Page
     {
+        private OnlineSessionPageViewModel _viewModel;
+
         public OnlineSessionPageView(string opponentUsername)
         {
             DataContext = new OnlineSessionPageViewModel(opponentUsername);
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// MUST RUN LoadVm after!!
+        /// </summary>
+        public OnlineSessionPageView()
+        {
+            InitializeComponent();
+        }
+
+        public async void LoadVm(string opponentUsername)
+        {
+            DataContext =
+                await Task<OnlineSessionPageViewModel>.Factory.StartNew(
+                    () => new OnlineSessionPageViewModel(opponentUsername));
         }
     }
 }

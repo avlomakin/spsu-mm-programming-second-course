@@ -1,6 +1,9 @@
-﻿using UltraTT.Game.View;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using UltraTT.Game.View;
 using UltraTT.Security.View;
 using UttUserService.Security;
+using UttUserService.Social;
 using WelcomePageView = UltraTT.Game.View.WelcomePageView;
 
 namespace UltraTT.View
@@ -29,6 +32,21 @@ namespace UltraTT.View
             _currentHolder.ShowContent(new AuthPageView());
         }
 
+
+        public void OnlineSessionFound(string opponentName)
+        {
+            /*var service = new StatService();
+            var owner = service.GetUserAndStatistics(Principal.Identity.Name);
+            var opponent = service.GetUserAndStatistics(opponentName);
+            var vs = new OnlineVersusView(owner, opponent);
+            _currentHolder.ShowContent(vs);
+
+            Thread.Sleep(2000);*/
+            //var session = new OnlineSessionPageView();
+            //session.LoadVm(opponentName);
+            _currentHolder.ShowContent(new OnlineSessionPageView(opponentName));
+
+        }
         public void AuthCompleted()
         {
             var gamePage = new GameHostPageView();

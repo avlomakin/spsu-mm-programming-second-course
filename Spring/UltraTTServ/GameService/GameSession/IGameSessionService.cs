@@ -13,6 +13,8 @@ namespace GameService.GameSession
         [OperationContract(IsOneWay = true)]
         void Step(int bigCell, int position);
 
+        [OperationContract(IsOneWay = true)]
+        void Won();
 
         /// <summary>
         /// get all filled cells in format (big cell, position, owner)

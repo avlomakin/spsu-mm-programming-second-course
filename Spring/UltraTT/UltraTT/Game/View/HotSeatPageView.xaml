@@ -17,7 +17,7 @@
         <viewModel:HotSeatPageViewModel/>
     </Page.DataContext>
 
-    <Grid Height="Auto" Width="Auto" SnapsToDevicePixels="True">
+    <Grid HorizontalAlignment="Center" SnapsToDevicePixels="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>

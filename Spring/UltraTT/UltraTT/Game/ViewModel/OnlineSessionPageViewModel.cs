@@ -3,6 +3,7 @@ using System.Threading;
 using System.Windows.Input;
 using GameLogic;
 using UltraTT.Game.Model;
+using UltraTT.Game.View;
 using UltraTT.View;
 using UttUserService.Social;
 
@@ -74,8 +75,10 @@ namespace UltraTT.Game.ViewModel
 
         public override void GotWinnerHandler(object sender, Cell arg)
         {
-            GameInfo = arg == _model.Owner ? "YOU WIN!" : "you lose(";
-            CommandManager.InvalidateRequerySuggested();
+            var winner = arg == Cell.Cross ? CrossUser : NoughtUser;
+            var loser = arg != Cell.Cross ? CrossUser : NoughtUser;
+
+            Navigator.GetInstance().Show(new SessionResultView(winner, loser));
         }
 
         public override void OwnerSwitchedHandler(object sender, Cell arg)

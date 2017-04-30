@@ -91,7 +91,7 @@
     
     
 
-    <Grid Background="White" SnapsToDevicePixels="True">
+    <Grid HorizontalAlignment="Center" Margin="-20, 0, 0, 0" Background="White" SnapsToDevicePixels="True">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
@@ -119,7 +119,7 @@
                         </TabItem.Header>
                         <TabItem.Content>
                             <StackPanel > 
-                                <TextBlock Text="{Binding Statistics.TotalWinrate}"/>
+                                <TextBlock Text="{c:Binding Statistics.TotalWinrate*100}"/>
                                 <TextBlock Text="%"/>
                             </StackPanel>
                         </TabItem.Content>
@@ -131,7 +131,7 @@
                         </TabItem.Header>
                         <TabItem.Content>
                             <StackPanel >
-                                <TextBlock Text="{Binding Statistics.CrossWinrate}"/>
+                                <TextBlock Text="{c:Binding Statistics.CrossWinrate*100}"/>
                                 <TextBlock Text="%"/>
                             </StackPanel>
                         </TabItem.Content>
@@ -144,7 +144,7 @@
                         </TabItem.Header>
                         <TabItem.Content>
                             <StackPanel >
-                                <TextBlock Text="{Binding Statistics.NoughtWinrate}"/>
+                                <TextBlock Text="{c:Binding Statistics.NoughtWinrate*100}"/>
                                 <TextBlock Text="%"/>
                             </StackPanel>
                         </TabItem.Content>

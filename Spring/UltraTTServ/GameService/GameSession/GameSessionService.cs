@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.ServiceModel;
+using DatabaseAccess;
 
 namespace GameService.GameSession
 {
@@ -13,6 +14,10 @@ namespace GameService.GameSession
         private bool _isMyTurn;
         public  bool Found { get; private set; }
         public bool SetupFinished { get; private set; }
+        private string _username;
+        
+
+        public StatDAO StatDao { private get; set; }
 
 
         public bool IsCross { get; set; }
@@ -20,6 +25,10 @@ namespace GameService.GameSession
         public GameSessionService()
         {
             _sender = OperationContext.Current.GetCallbackChannel<IGameSessionServiceCallback>();
+            StatDao = new StatDAO()
+            {
+                Context = new UttContext()
+            };
         }
 
 
@@ -69,8 +78,11 @@ namespace GameService.GameSession
                 }
             }
 
-            Console.WriteLine(username + ": " + (IsCross ? "cross" : "nought"));
+            var side = (IsCross ? "cross" : "nought");
+            Console.WriteLine(username + ": " + side);
+            StatDao.GamePlayed(username, side);
 
+            _username = username;
             _isMyTurn = IsCross;
 
             _sender.SyncRoles(IsCross);
@@ -79,6 +91,13 @@ namespace GameService.GameSession
         private static object Min(object a, object b)
         {
             return a.GetHashCode() < b.GetHashCode() ? a : b;
+        }
+
+        public void Won()
+        {
+            var side = (IsCross ? "cross" : "nought");
+            Console.WriteLine(_username + " won");
+            StatDao.GameWon(_username, side);
         }
     }
 }

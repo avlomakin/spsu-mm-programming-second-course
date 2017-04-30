@@ -31,6 +31,18 @@ namespace UltraTT.Game.Model
             base.Step(bigCell, position);
         }
 
+        protected override void CheckForWinner()
+        {
+            var winner = GameField.Check();
+
+            if (winner != Cell.Empty)
+            {
+                IsFinished = true;
+                if(winner ==Owner)_client.WonAsync();
+                OnGotWinner(winner);
+            }
+        }
+
         /// <summary>
         /// TODO: RENAME RECEIVE STEP
         /// </summary>

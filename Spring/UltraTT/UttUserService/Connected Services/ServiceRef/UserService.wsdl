@@ -32,9 +32,8 @@
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:8080/?xsd=xsd0" namespace="http://tempuri.org/" />
-      <xsd:import schemaLocation="http://localhost:8080/?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/UserService.Errors" />
       <xsd:import schemaLocation="http://localhost:8080/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://localhost:8080/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/UserService" />
+      <xsd:import schemaLocation="http://localhost:8080/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/UserService.Dto" />
       <xsd:import schemaLocation="http://localhost:8080/?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
@@ -44,14 +43,8 @@
   <wsdl:message name="IUserService_Auth_OutputMessage">
     <wsdl:part name="parameters" element="tns:AuthResponse" />
   </wsdl:message>
-  <wsdl:message name="IUserService_Auth_AuthFaultFault_FaultMessage">
-    <wsdl:part xmlns:q1="http://schemas.datacontract.org/2004/07/UserService.Errors" name="detail" element="q1:AuthFault" />
-  </wsdl:message>
   <wsdl:message name="IUserService_Reg_InputMessage">
     <wsdl:part name="parameters" element="tns:Reg" />
-  </wsdl:message>
-  <wsdl:message name="IUserService_Reg_OutputMessage">
-    <wsdl:part name="parameters" element="tns:RegResponse" />
   </wsdl:message>
   <wsdl:message name="IUserService_GetTop_InputMessage">
     <wsdl:part name="parameters" element="tns:GetTop" />
@@ -59,19 +52,37 @@
   <wsdl:message name="IUserService_GetTop_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetTopResponse" />
   </wsdl:message>
+  <wsdl:message name="IUserService_GetScore_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetScore" />
+  </wsdl:message>
+  <wsdl:message name="IUserService_GetScore_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetScoreResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUserService_GetStat_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStat" />
+  </wsdl:message>
+  <wsdl:message name="IUserService_GetStat_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStatResponse" />
+  </wsdl:message>
   <wsdl:portType name="IUserService">
     <wsdl:operation name="Auth">
       <wsdl:input wsaw:Action="http://tempuri.org/IUserService/Auth" message="tns:IUserService_Auth_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUserService/AuthResponse" message="tns:IUserService_Auth_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IUserService/AuthAuthFaultFault" name="AuthFaultFault" message="tns:IUserService_Auth_AuthFaultFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="Reg">
       <wsdl:input wsaw:Action="http://tempuri.org/IUserService/Reg" message="tns:IUserService_Reg_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUserService/RegResponse" message="tns:IUserService_Reg_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetTop">
       <wsdl:input wsaw:Action="http://tempuri.org/IUserService/GetTop" message="tns:IUserService_GetTop_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUserService/GetTopResponse" message="tns:IUserService_GetTop_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetScore">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUserService/GetScore" message="tns:IUserService_GetScore_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUserService/GetScoreResponse" message="tns:IUserService_GetScore_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStat">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUserService/GetStat" message="tns:IUserService_GetStat_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUserService/GetStatResponse" message="tns:IUserService_GetStat_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IUserService" type="tns:IUserService">
@@ -85,12 +96,15 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="AuthFaultFault">
-        <soap12:fault use="literal" name="AuthFaultFault" namespace="" />
-      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="Reg">
       <soap12:operation soapAction="http://tempuri.org/IUserService/Reg" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="GetTop">
+      <soap12:operation soapAction="http://tempuri.org/IUserService/GetTop" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -98,8 +112,17 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetTop">
-      <soap12:operation soapAction="http://tempuri.org/IUserService/GetTop" style="document" />
+    <wsdl:operation name="GetScore">
+      <soap12:operation soapAction="http://tempuri.org/IUserService/GetScore" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStat">
+      <soap12:operation soapAction="http://tempuri.org/IUserService/GetStat" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

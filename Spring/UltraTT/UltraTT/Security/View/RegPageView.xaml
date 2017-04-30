@@ -4,6 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:UltraTT.View"
+      xmlns:viewModel="clr-namespace:UltraTT.Security.ViewModel"
+      d:DataContext="{d:DesignInstance viewModel:RegPageViewModel}"
       mc:Ignorable="d" 
       d:DesignHeight="350" d:DesignWidth="300"
       Title="RegPageView">
@@ -48,12 +50,12 @@
 
                 <TextBlock Text="Confirm password: " Grid.Row="4" Margin="15, 0"/>
                 <TextBox Grid.Row="5" Margin="15, 5"
-                         Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                         Text="{Binding Confirm, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 
                 <Button Grid.Row="6"   
-                    Content="Registrate" FontWeight="DemiBold" FontSize="15"
+                    Content="Sign up" FontWeight="DemiBold" FontSize="15"
                     Margin="15, 5" Padding="0, 0, 0, 2"
-                    Command="{Binding LoginCommand}"/>
+                    Command="{Binding RegCommand}"/>
 
                 <TextBlock Grid.Row="7" 
                        Text="{Binding ErrorText, Mode=Default}" Foreground="DarkRed" FontWeight="DemiBold" FontSize="12"

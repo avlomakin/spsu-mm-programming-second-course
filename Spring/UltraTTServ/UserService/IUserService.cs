@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ServiceModel;
-using UserService.Errors;
+using UserService.Dto;
 
 namespace UserService
 {
@@ -8,13 +8,18 @@ namespace UserService
     public interface IUserService
     {
         [OperationContract]
-        [FaultContract(typeof(AuthFault))]
         UserDto Auth(string username, string password);
 
-        [OperationContract]
+        [OperationContract(IsOneWay = true)]
         void Reg(string username, string password);
 
         [OperationContract]
         List<UserDto> GetTop();
+
+        [OperationContract]
+        int GetScore(string username);
+
+        [OperationContract]
+        StatDto GetStat(string username);
     }
 }

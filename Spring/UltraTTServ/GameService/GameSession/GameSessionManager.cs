@@ -7,7 +7,8 @@ namespace GameService.GameSession
 {
     public class GameSessionManager
     {
-        private static Dictionary<string, GameSessionService> _sessionsList = new Dictionary<string, GameSessionService>();
+        private static Dictionary<string, GameSessionService> _sessionsList = 
+            new Dictionary<string, GameSessionService>();
 
         public static void RegNewSession(string username, GameSessionService service)
         {

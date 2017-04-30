@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using UltraTT.Command;
+using UltraTT.Security.View;
 using UltraTT.View;
 using UltraTT.ViewModel;
 using UttUserService.Security;
@@ -18,6 +19,11 @@ namespace UltraTT.Security.ViewModel
         }
 
         #region Properties
+
+        public SimpleCommand RegPage => new SimpleCommand(ShowRegPage);
+
+
+
         private string _username;
         public string Username
         {
@@ -83,6 +89,11 @@ namespace UltraTT.Security.ViewModel
 
         #endregion
 
+
+        private void ShowRegPage()
+        {
+            Navigator.GetInstance().Show(new RegPageView());
+        }
 
         private void Login()
         {

@@ -15,14 +15,14 @@
     <Position X="3.5" Y="0.5" Width="2.75" />
     <AssociationLine Name="_loginCommand" Type="UltraTT.Command.SimpleCommand" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="4.719" Y="3.79" />
+        <Point X="4.719" Y="4.175" />
         <Point X="4.719" Y="6.5" />
         <Point X="6.5" Y="6.5" />
       </Path>
     </AssociationLine>
     <AssociationLine Name="LoginCommand" Type="UltraTT.Command.SimpleCommand" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="4.078" Y="3.79" />
+        <Point X="4.078" Y="4.175" />
         <Point X="4.078" Y="4.625" />
         <Point X="4.636" Y="4.625" Type="JumpStart" />
         <Point X="4.802" Y="4.625" Type="JumpEnd" />
@@ -31,7 +31,7 @@
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAIAAAAAQAQACAAAAAAAAACQAIQAACAAAA=</HashCode>
+      <HashCode>AAQAAAAAAAAIAAAAAQAQAiAAAAAAIAACQAIQAACAAAA=</HashCode>
       <FileName>Security\ViewModel\AuthPageViewModel.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>

@@ -5,50 +5,57 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:viewModel="clr-namespace:UltraTT.Game.ViewModel"
+      xmlns:fa="http://schemas.fontawesome.io/icons/"
       d:DataContext="{d:DesignInstance viewModel:TopHubPageViewModel}"
       mc:Ignorable="d" 
-      d:DesignHeight="200" d:DesignWidth="525"
+      d:DesignHeight="45" d:DesignWidth="525"
       Title="TopHubPageView">
 
     <Page.Resources>
         <system:Int32 x:Key="BorderSize">3</system:Int32>
 
-        <Style x:Key="HubButtonText" TargetType="TextBlock">
-            <Setter Property="TextDecorations">
-                <Setter.Value>Underline</Setter.Value>
-            </Setter>
-            <Setter Property="FontSize">
-                <Setter.Value>17</Setter.Value>
-            </Setter>
-            <Setter Property="FontWeight" Value="Bold"/>
+
+        <ControlTemplate TargetType="Button" x:Key="BtnTemplate">
+            <ControlTemplate.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="Margin" Value="0"/>
+                </Style>
+                <Style x:Key="HubButtonText" TargetType="TextBlock">
+                    <Setter Property="FontSize">
+                        <Setter.Value>17</Setter.Value>
+                    </Setter>
+                    <Setter Property="FontFamily" Value="Segoe UI"/>
+                    <Setter Property="FontWeight" Value="Normal"/>
+
+                    <Setter Property="Foreground" Value="White"/>
+                </Style>
+            </ControlTemplate.Resources>
             
-            <Setter Property="Foreground" Value="Black"/>
-        </Style>
 
-        <Style x:Key="HubTextedButton" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Margin" Value="10"></Setter>
+            <Grid Width="{Binding RelativeSource={ RelativeSource TemplatedParent}, Path=ActualWidth}"
+                  Height="{Binding RelativeSource={ RelativeSource TemplatedParent}, Path=ActualHeight}"
+                  Name="Hst" Background="Transparent">
+                <StackPanel Orientation="Horizontal" 
+                            VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock Style="{StaticResource HubButtonText}" Text="{TemplateBinding Content}" VerticalAlignment="Center"/>
+                    <Image Source="{DynamicResource ResourceKey=Img}" Width="20" Height="20" Stretch="Fill" Margin="5"/>
+                </StackPanel>
+            </Grid>
 
-
-            <Setter Property="ContentTemplate">
-                <Setter.Value>
-                    <DataTemplate DataType="TextBlock">
-                        <TextBlock Style="{StaticResource HubButtonText}" Text="{TemplateBinding Content}"/>
-                    </DataTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style x:Key="ImageBtn" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Margin" Value="10"></Setter>
-        </Style>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="Hst" Property="Background" Value="#FF2A4E6C"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter TargetName="Hst" Property="Background" Value="#FF3A6A91"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
 
     </Page.Resources>
 
-    <Grid SnapsToDevicePixels="True">
+    <Grid SnapsToDevicePixels="True" Background="#FF1D1D1D" Height="Auto">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -56,54 +63,40 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="54"/>
-            <RowDefinition Height="{Binding Source={StaticResource BorderSize}}"/>
-            <RowDefinition Height="10"/>
-            <RowDefinition Height="{Binding Source={StaticResource BorderSize}}"/>
-            <RowDefinition Height="2"/>
-        </Grid.RowDefinitions>
 
-        <Button Grid.Row="0" Grid.Column="0"  Content="Hot seat" Style="{StaticResource HubTextedButton}"
-                Command="{Binding ShowCommand}" CommandParameter="{Binding HotSeat, BindsDirectlyToSource=True}"/>
-        
-        
-        <Button Grid.Row="0" Grid.Column="1" Content="Online" Style="{StaticResource HubTextedButton}"
-                Command="{Binding ShowCommand}" CommandParameter="{Binding OnlineLobby, BindsDirectlyToSource=True}"/>
 
-        
-        <Image Panel.ZIndex="2" Grid.Row="0" Grid.RowSpan="3" Grid.Column="2" Stretch="None" Source="../../src/logo/small.png"
-               Margin="5, 0"/>
-
-        <Button Grid.Row="0" Grid.Column="3" Style="{StaticResource ImageBtn}"
-                Command="{Binding ShowCommand}" CommandParameter="{Binding LeaderBoard, BindsDirectlyToSource=True}">
-            <Image Name="TopImage" Source="../../src/leaderboard.png"/>
+        <Button Grid.Column="0"  Content="Hot seat"
+                Command="{Binding ShowCommand}" CommandParameter="{Binding HotSeat, BindsDirectlyToSource=True}" Template="{DynamicResource BtnTemplate}">
+            <Button.Resources>
+                <ImageSource x:Key="Img">../../src/hotseat.png</ImageSource>
+            </Button.Resources>
         </Button>
 
-        <Button Grid.Row="0" Grid.Column="4" Style="{StaticResource ImageBtn}"
-                Command="{Binding ShowCommand}" CommandParameter="{Binding UserPage, BindsDirectlyToSource=True}">
-            <Image Name="UserImg" Source="../../src/user.png" Stretch="None"/>
+
+        <Button Grid.Column="1" Content="Online"
+                Command="{Binding ShowCommand}" CommandParameter="{Binding OnlineLobby, BindsDirectlyToSource=True}" Template="{DynamicResource BtnTemplate}">
+            <Button.Resources>
+                <ImageSource x:Key="Img">../../src/online.png</ImageSource>
+            </Button.Resources>
         </Button>
 
-        <!-- Border -->
-        <Rectangle Panel.ZIndex="1" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Stretch="UniformToFill" Fill="Gray"/>
-        <Rectangle Panel.ZIndex="1" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Stretch="UniformToFill" Fill="Gray"/>
-        <Grid Grid.Row="2" Grid.Column="1" Grid.RowSpan="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="{Binding Source={StaticResource BorderSize}}"/>
-            </Grid.ColumnDefinitions>
-            <Rectangle Panel.ZIndex="1" Grid.Column="1" Stretch="UniformToFill" Fill="Gray"/>
-        </Grid>
-        <Grid Grid.Row="2" Grid.Column="3" Grid.RowSpan="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="{Binding Source={StaticResource BorderSize}}"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Rectangle Panel.ZIndex="1" Grid.Column="0" Stretch="UniformToFill" Fill="Gray"/>
-        </Grid>
-        <Rectangle Panel.ZIndex="1" Grid.Row="3" Grid.Column="2" Stretch="Fill" Fill="Gray"/>
-        
-        <!--Border -->
+
+        <Image Panel.ZIndex="2" Grid.Column="2" Stretch="Uniform" Source="../../src/logo/small.png"
+               Margin="5, 2"/>
+
+        <Button Grid.Column="3" Content="Leaders"
+                Command="{Binding ShowCommand}" CommandParameter="{Binding LeaderBoard, BindsDirectlyToSource=True}" Template="{DynamicResource BtnTemplate}">
+            <Button.Resources>
+                <ImageSource x:Key="Img">../../src/leaderboard.png</ImageSource>
+            </Button.Resources>
+        </Button>
+
+        <Button Grid.Column="4" Content="Profile"
+                Command="{Binding ShowCommand}" CommandParameter="{Binding UserPage, BindsDirectlyToSource=True}" Template="{DynamicResource BtnTemplate}">
+            <Button.Resources>
+                <ImageSource x:Key="Img">../../src/user.png</ImageSource>
+            </Button.Resources>
+
+        </Button>
     </Grid>
 </Page>

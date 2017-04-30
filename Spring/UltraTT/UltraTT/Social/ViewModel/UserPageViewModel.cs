@@ -1,4 +1,6 @@
-﻿using UltraTT.ViewModel;
+﻿using UltraTT.View;
+using UltraTT.ViewModel;
+using UttUserService.ServiceRef;
 using UttUserService.Social;
 
 namespace UltraTT.Social.ViewModel
@@ -10,7 +12,7 @@ namespace UltraTT.Social.ViewModel
 
         public UserPageViewModel()
         {
-            User = _statService.GetUserAndStatistics();
+            User = _statService.GetUserAndStatistics(Navigator.GetInstance().Principal.Identity.Name);
             Statistics = User.Statistics;
         }
 
@@ -30,8 +32,8 @@ namespace UltraTT.Social.ViewModel
         }
 
 
-        private Statistics _statistics;
-        public Statistics Statistics
+        private StatDto _statistics;
+        public StatDto Statistics
         {
             get
             {
